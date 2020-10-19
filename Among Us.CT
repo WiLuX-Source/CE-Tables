@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="31">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Impostor"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>260</ID>
+          <Description>"No Cooldown Kill [Client]"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$10)
+label(returnhere)
+
+newmem:
+mov [esi+44],(float)0
+jmp returnhere
+
+"GameAssembly.dll"+212B9A:
+jmp newmem
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"GameAssembly.dll"+212B9A:
+movss [esi+44],xmm0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"No Cooldown Doors [Client]"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+"GameAssembly.dll"+2A3BF4:
+db C7 40 38 00 00 00 00
+
+
+ 
+ 
+[DISABLE]
+"GameAssembly.dll"+2A3BF4:
+db C7 40 38 00 00 F0 41
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"No Cooldown Events [Host]"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+"GameAssembly.dll"+1C49A1:
+mov [edi+08],00000000
+"GameAssembly.dll"+1C49D7:
+mov [edi+08],00000000
+"GameAssembly.dll"+1C4A11:
+mov [edi+08],00000000
+"GameAssembly.dll"+1C4A47:
+mov [edi+08],00000000
+"GameAssembly.dll"+1C4AAC:
+mov [edi+08],00000000
+[DISABLE]
+"GameAssembly.dll"+1C49A1:
+mov [edi+08],41F00000
+"GameAssembly.dll"+1C49D7:
+mov [edi+08],41F00000
+"GameAssembly.dll"+1C4A11:
+mov [edi+08],41F00000
+"GameAssembly.dll"+1C4A47:
+mov [edi+08],41F00000
+"GameAssembly.dll"+1C4AAC:
+mov [edi+08],41F00000
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Crewmate"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>FF0000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"See Impostors [Client]"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+"GameAssembly.dll"+1B2439:
+db EB 04
+"GameAssembly.dll"+2124A8:
+db 90 90 90 90 90 90
+[DISABLE]
+"GameAssembly.dll"+1B2439:
+db 75 04
+"GameAssembly.dll"+2124A8:
+db 0F 84 2D 02 00 00
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>259</ID>
+          <Description>"Super Vision [Client]"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(impostor,18,"GameAssembly.dll"+A32082)
+alloc(crewmate,18,"GameAssembly.dll"+A32040)
+label(returnhere)
+label(returnherea)
+
+// Impostor
+impostor:
+fld dword ptr [eax+1C]
+mov [eax+1C],(float)50
+fmul dword ptr [ebp+0C]
+jmp returnhere
+
+"GameAssembly.dll"+A32082:
+jmp impostor
+nop
+returnhere:
+
+// Crewmate
+crewmate:
+fld dword ptr [eax+18]
+mov [eax+18],(float)50
+fmul dword ptr [ebp+0C]
+jmp returnherea
+
+"GameAssembly.dll"+A32040:
+jmp crewmate
+nop
+returnherea:
+
+[DISABLE]
+// Impostor
+"GameAssembly.dll"+A32082:
+db D9 40 1C D8 4D 0C
+// Crewmate
+"GameAssembly.dll"+A32040:
+db D9 40 18 D8 4D 0C
+
+dealloc(impostor)
+dealloc(crewmate)
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>258</ID>
+      <Description>"Ability [Semi-Client]"</Description>
+      <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Crewmate
+1:Impostor
+</DropDownList>
+      <VariableType>Byte</VariableType>
+      <Address>"GameAssembly.dll"+00DA5A84</Address>
+      <Offsets>
+        <Offset>28</Offset>
+        <Offset>34</Offset>
+        <Offset>0</Offset>
+        <Offset>5C</Offset>
+      </Offsets>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Set Value</Action>
+          <Keys>
+            <Key>16</Key>
+            <Key>49</Key>
+          </Keys>
+          <Value>0</Value>
+          <ID>0</ID>
+        </Hotkey>
+        <Hotkey>
+          <Action>Set Value</Action>
+          <Keys>
+            <Key>16</Key>
+            <Key>50</Key>
+          </Keys>
+          <Value>1</Value>
+          <ID>1</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>32</ID>
+      <Description>"Player Speed [Client]"</Description>
+      <VariableType>Float</VariableType>
+      <Address>"GameAssembly.dll"+00DA5A84</Address>
+      <Offsets>
+        <Offset>14</Offset>
+        <Offset>4</Offset>
+        <Offset>5C</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Structures StructVersion="2">
+    <Structure Name="FloatRange" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="8" Vartype="Float" Bytesize="4" Description="min" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="12" Vartype="Float" Bytesize="4" Description="max" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="16" Vartype="Float" Bytesize="4" Description="&lt;Last&gt;k__BackingField" DisplayMethod="Unsigned Integer"/>
+      </Elements>
+    </Structure>
+    <Structure Name="FloatRange.Static" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements/>
+    </Structure>
+  </Structures>
+  <Comments>Game Version:V2020.9.9S
+</Comments>
+</CheatTable>
