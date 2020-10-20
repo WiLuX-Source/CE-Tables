@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="27">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>592</ID>
+      <Description>"Pointers"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>714</ID>
+          <Description>"Highlighted Item Pointer (in Player Inventory)"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Thief Simulator
+  Version:
+  Date   : 2018-11-17
+  Author : Igromanru
+
+  Highlighted Item Pointer
+  Only in Player Inventory
+}
+
+define(highlightedItem,ItemsCanvasWindow:SelectItem+64)
+define(bytes,48 89 B7 A8 00 00 00)
+
+[ENABLE]
+assert(highlightedItem,bytes)
+
+globalalloc(pHighlightedItem,$8)
+alloc(newmem,$50)
+
+label(highlightedItemBackup)
+label(code)
+label(return)
+
+registerSymbol(highlightedItem)
+registerSymbol(highlightedItemBackup)
+
+newmem:
+highlightedItemBackup:
+  readMem(highlightedItem,7)
+code:
+  mov [pHighlightedItem],rsi  //PlayerInventory.InventoryItem
+  jmp return
+
+highlightedItem:
+  jmp newmem
+  nop
+  nop
+return:
+
+[DISABLE]
+highlightedItem:
+  readMem(highlightedItemBackup,7)
+
+dealloc(newmem)
+unregisterSymbol(highlightedItem)
+unregisterSymbol(highlightedItemBackup)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 25E527E71B4
+
+25E527E7186: 49 BB D0 F3 95 39 5E 02 00 00  -  mov r11,UnityEngine:Object:op_Inequality
+25E527E7190: 41 FF D3                       -  call r11
+25E527E7193: 48 83 C4 20                    -  add rsp,20
+25E527E7197: 85 C0                          -  test eax,eax
+25E527E7199: 74 19                          -  je ItemsCanvasWindow:SelectItem+64
+25E527E719B: 48 8B 4F 30                    -  mov rcx,[rdi+30]
+25E527E719F: 48 83 EC 20                    -  sub rsp,20
+25E527E71A3: 49 BB 70 22 8F 27 5E 02 00 00  -  mov r11,UnityEngine:Object:DestroyImmediate
+25E527E71AD: 41 FF D3                       -  call r11
+25E527E71B0: 48 83 C4 20                    -  add rsp,20
+// ---------- INJECTING HERE ----------
+25E527E71B4: 48 89 B7 A8 00 00 00           -  mov [rdi+000000A8],rsi
+// ---------- DONE INJECTING  ----------
+25E527E71BB: 48 8B 46 18                    -  mov rax,[rsi+18]
+25E527E71BF: 0F B6 40 7A                    -  movzx eax,byte ptr [rax+7A]
+25E527E71C3: 85 C0                          -  test eax,eax
+25E527E71C5: 75 26                          -  jne ItemsCanvasWindow:SelectItem+9d
+25E527E71C7: 48 8B 87 98 00 00 00           -  mov rax,[rdi+00000098]
+25E527E71CE: 48 8B C8                       -  mov rcx,rax
+25E527E71D1: 33 D2                          -  xor edx,edx
+25E527E71D3: 48 83 EC 20                    -  sub rsp,20
+25E527E71D7: 83 38 00                       -  cmp dword ptr [rax],00
+25E527E71DA: 49 BB 80 7C 7E 52 5E 02 00 00  -  mov r11,UnityEngine.UI:Selectable:set_interactable
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>715</ID>
+              <Description>"Id"</Description>
+              <VariableType>String</VariableType>
+              <Length>100</Length>
+              <Unicode>1</Unicode>
+              <CodePage>0</CodePage>
+              <ZeroTerminate>1</ZeroTerminate>
+              <Address>pHighlightedItem</Address>
+              <Offsets>
+                <Offset>14</Offset>
+                <Offset>10</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>719</ID>
+              <Description>"itemAssert"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Pointer</VariableType>
+              <Address>pHighlightedItem</Address>
+              <Offsets>
+                <Offset>18</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>720</ID>
+                  <Description>"itemName"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>100</Length>
+                  <Unicode>1</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>14</Offset>
+                    <Offset>20</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>721</ID>
+                  <Description>"itemDesc"</Description>
+                  <VariableType>String</VariableType>
+                  <Length>100</Length>
+                  <Unicode>1</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>14</Offset>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>722</ID>
+                  <Description>"weight"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>68</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>723</ID>
+                  <Description>"maxAmountCarry"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>6C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>724</ID>
+                  <Description>"basePrice"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>70</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>725</ID>
+                  <Description>"baseExp"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>74</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>726</ID>
+                  <Description>"respawnsAfterSale"</Description>
+                  <VariableType>Binary</VariableType>
+                  <BitStart>0</BitStart>
+                  <BitLength>1</BitLength>
+                  <ShowAsBinary>0</ShowAsBinary>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>78</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>730</ID>
+                  <Description>"canBeSoldAtPawn"</Description>
+                  <VariableType>Binary</VariableType>
+                  <BitStart>0</BitStart>
+                  <BitLength>1</BitLength>
+                  <ShowAsBinary>0</ShowAsBinary>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>79</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>727</ID>
+                  <Description>"canBeDropped"</Description>
+                  <VariableType>Binary</VariableType>
+                  <BitStart>0</BitStart>
+                  <BitLength>1</BitLength>
+                  <ShowAsBinary>0</ShowAsBinary>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>7C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>728</ID>
+                  <Description>"isBigItem"</Description>
+                  <VariableType>Binary</VariableType>
+                  <BitStart>0</BitStart>
+                  <BitLength>1</BitLength>
+                  <ShowAsBinary>0</ShowAsBinary>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>7b</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>729</ID>
+                  <Description>"isHoldOnly"</Description>
+                  <VariableType>Binary</VariableType>
+                  <BitStart>0</BitStart>
+                  <BitLength>1</BitLength>
+                  <ShowAsBinary>0</ShowAsBinary>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>7c</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>731</ID>
+                  <Description>"itemType"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Loot
+1:Tool
+2:Key
+</DropDownList>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>a8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>732</ID>
+                  <Description>"itemGroup"</Description>
+                  <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:All
+1:None
+2:Jewelry
+3:CarPart
+4:Hackables
+</DropDownList>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>AC</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>716</ID>
+              <Description>"durability"</Description>
+              <VariableType>Float</VariableType>
+              <Address>pHighlightedItem</Address>
+              <Offsets>
+                <Offset>28</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>406</ID>
+          <Description>"PlayerInventory Static Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+  Author: Igromanru
+  Game: Thief Simulator
+  Date: 10.11.2018
+
+  PlayerInventory Static Pointers
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+local domains = mono_enumDomains()
+local domainId = domains[1]
+local playerInventoryId = mono_findClass('', 'PlayerInventory')
+local pPlayerInventoryStatic = mono_class_getStaticFieldAddress(domainId, playerInventoryId)
+unregisterSymbol('pPlayerInventoryStatic')
+registerSymbol('pPlayerInventoryStatic',pPlayerInventoryStatic)
+
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+unregisterSymbol('pPlayerInventoryStatic')
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>410</ID>
+              <Description>"Pointer"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Pointer</VariableType>
+              <Address>pPlayerInventoryStatic</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>4</ID>
+                  <Description>"skillPoints"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>5</ID>
+                  <Description>"cash"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>6</ID>
+                  <Description>"experience"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>7</ID>
+                  <Description>"level"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>8</ID>
+                  <Description>"isSummaryPending"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+10</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9</ID>
+                  <Description>"stolenItemsList"</Description>
+                  <LastState Value="" RealAddress="00000018"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+18</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>10</ID>
+                  <Description>"itemsList"</Description>
+                  <LastState Value="" RealAddress="00000020"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+20</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>11</ID>
+                  <Description>"slottedItems"</Description>
+                  <LastState Value="" RealAddress="00000028"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+28</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>12</ID>
+                  <Description>"currentDisassembledCar"</Description>
+                  <LastState Value="" RealAddress="00000030"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+30</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>13</ID>
+                  <Description>"saveAtStart"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+38</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>14</ID>
+                  <Description>"_instance"</Description>
+                  <LastState Value="" RealAddress="00000040"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+40</Address>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>616</ID>
+                      <Description>"currentMaxWeight"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>58</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>617</ID>
+                      <Description>"startMaxWeight"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>5c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>618</ID>
+                      <Description>"currentSelectedSlotId"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>60</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>633</ID>
+          <Description>"WeatherController Static Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+  Author: Igromanru
+  Game: Thief Simulator
+  Date: 11.11.2018
+
+  WeatherController Static Pointers
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+local domains = mono_enumDomains()
+local domainId = domains[1]
+local classId = mono_findClass('', 'WeatherController')
+local pStatic = mono_class_getStaticFieldAddress(domainId, classId)
+unregisterSymbol('pWeatherController')
+registerSymbol('pWeatherController',pStatic)
+
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+unregisterSymbol('pWeatherController')
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>628</ID>
+              <Description>"minutes"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pWeatherController</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>629</ID>
+              <Description>"hours"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pWeatherController + 4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>630</ID>
+              <Description>"days"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pWeatherController + 8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>631</ID>
+              <Description>"turnDay"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pWeatherController + C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>632</ID>
+              <Description>"_instance"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Pointer</VariableType>
+              <Address>pWeatherController + 10</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>637</ID>
+                  <Description>"worldLight"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>18</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>641</ID>
+                  <Description>"tenkoku (TenkokuModule)"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>20</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>636</ID>
+                      <Description>"currentSecond"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>960</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>646</ID>
+                      <Description>"lastSecond"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>964</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>647</ID>
+                      <Description>"currentMinute"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>968</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>648</ID>
+                      <Description>"currentHour"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>96C</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>649</ID>
+                      <Description>"currentDay"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>970</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>650</ID>
+                      <Description>"currentMonth"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>974</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>651</ID>
+                      <Description>"currentYear"</Description>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+0</Address>
+                      <Offsets>
+                        <Offset>978</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>634</ID>
+                  <Description>"dayHourStart"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>28</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>635</ID>
+                  <Description>"dayHourEnd"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>2C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>645</ID>
+                  <Description>"lightPower"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>638</ID>
+                  <Description>"ambientAmountStart"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>34</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>639</ID>
+                  <Description>"skyAmountStart"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>38</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>640</ID>
+                  <Description>"timeCompression"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>3C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>642</ID>
+                  <Description>"ISpeed"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>643</ID>
+                  <Description>"wasNightVision"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>44</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>644</ID>
+                  <Description>"insideTimerForWindows"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>48</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>677</ID>
+          <Description>"PlayerController Static Pointer"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{
+  Author: Igromanru
+  Game: Thief Simulator
+  Date: 14.11.2018
+
+  PlayerController Static Pointers
+}
+
+[ENABLE]
+{$lua}
+if syntaxcheck then return end
+local domains = mono_enumDomains()
+local domainId = domains[1]
+local classId = mono_findClass('', 'PlayerController')
+local pStatic = mono_class_getStaticFieldAddress(domainId, classId)
+unregisterSymbol('pPlayerController')
+registerSymbol('pPlayerController',pStatic)
+
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+unregisterSymbol('pPlayerController')
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>669</ID>
+              <Description>"trespassingTime"</Description>
+              <VariableType>Float</VariableType>
+              <Address>pPlayerController</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>670</ID>
+              <Description>"frontYardTime"</Description>
+              <VariableType>Float</VariableType>
+              <Address>pPlayerController +4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>671</ID>
+              <Description>"carStealKeyRemembered"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Pointer</VariableType>
+              <Address>pPlayerController +8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>672</ID>
+              <Description>"startInCar"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>pPlayerController + 10</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>673</ID>
+              <Description>"currentControllableVehicle"</Description>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Pointer</VariableType>
+              <Address>pPlayerController + 18</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>674</ID>
+              <Description>"enterColldownTime"</Description>
+              <VariableType>Float</VariableType>
+              <Address>pPlayerController + 20</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>675</ID>
+              <Description>"additionalSneakingSpeed"</Description>
+              <VariableType>Float</VariableType>
+              <Address>pPlayerController + 24</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>676</ID>
+              <Description>"_instance"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Pointer</VariableType>
+              <Address>pPlayerController + 28</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>680</ID>
+                  <Description>"closestHouse"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>18</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>681</ID>
+                  <Description>"fasterCarrySkill"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>20</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>682</ID>
+                  <Description>"keysOnScene"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>28</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>683</ID>
+                  <Description>"policePursuitTutorial"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>30</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>684</ID>
+                  <Description>"humans"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>38</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>685</ID>
+                  <Description>"soundDetectors"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>Pointer</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>40</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>678</ID>
+                  <Description>"policeTimeOut"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>138</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>679</ID>
+                  <Description>"farFromPoliceTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>13C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>686</ID>
+                  <Description>"isPoliceIncoming"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>140</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>687</ID>
+                  <Description>"isPoliceStars"</Description>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>144</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>688</ID>
+                  <Description>"isElectricianIncoming"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>148</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>689</ID>
+                  <Description>"isCutscene"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>149</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>690</ID>
+                  <Description>"isIllegalClimbing"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>14a</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>691</ID>
+                  <Description>"playerVisibility"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>14C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>692</ID>
+                  <Description>"flashLightOn"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>158</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>693</ID>
+                  <Description>"policeArrivesTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>15C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>694</ID>
+                  <Description>"electricityFixTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>160</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>695</ID>
+                  <Description>"blockInputTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>164</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>696</ID>
+                  <Description>"forcePoliceTimeoutTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>168</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>697</ID>
+                  <Description>"visibleByOthersTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>16C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>698</ID>
+                  <Description>"gunTennantsKnownPlayerLocationTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>170</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>699</ID>
+                  <Description>"radioNearTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>174</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>700</ID>
+                  <Description>"slowOpenTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>174</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>701</ID>
+                  <Description>"findTheCar"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>17C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>702</ID>
+                  <Description>"lastStart"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>17d</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>703</ID>
+                  <Description>"detectionPercent"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>180</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>704</ID>
+                  <Description>"noisePercent"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>184</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>705</ID>
+                  <Description>"isSeenTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>188</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>706</ID>
+                  <Description>"wasInside"</Description>
+                  <VariableType>Byte</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>18C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>707</ID>
+                  <Description>"closestHouseClearTime"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                  <Offsets>
+                    <Offset>190</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>pTimeMultiplier</Name>
+      <Address>14921470000</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>pHighlightedItem</Name>
+      <Address>14921470010</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <Comments>Credits:
+igromanru - original creator
+Jeon, SilverDeath and Dr.Pepper - for help with some asm code
+</Comments>
+</CheatTable>

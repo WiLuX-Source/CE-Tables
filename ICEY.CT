@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="27">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Mono Activator"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+if (LaunchMonoDataCollector() ==0 ) then
+  error("Mono Acilamiyor")
+end
+
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Inf Dash"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100,PlayerFlashAbility:Swipe+364)
+label(returnhere)
+label(originalcode)
+
+newmem:
+
+originalcode:
+mov [rax+34],(int)5
+sub rsp,20
+jmp returnhere
+
+PlayerFlashAbility:Swipe+364:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+PlayerFlashAbility:Swipe+364:
+mov [rax+34],ecx
+sub rsp,20
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"Inf Armor"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100,PlayerAttribute:set_currentEnergy+2f)
+label(returnhere)
+label(originalcode)
+
+newmem:
+
+originalcode:
+mov [rdi+28],(int)10
+mov rdi,[rbp-08]
+jmp returnhere
+
+PlayerAttribute:set_currentEnergy+2f:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+PlayerAttribute:set_currentEnergy+2f:
+mov [rdi+28],eax
+mov rdi,[rbp-08]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"Inf Health"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100,PlayerAttribute:set_currentHP+2f)
+label(returnhere)
+label(originalcode)
+
+newmem:
+
+originalcode:
+mov [rdi+20],(int)1000
+mov rdi,[rbp-08]
+jmp returnhere
+
+PlayerAttribute:set_currentHP+2f:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+PlayerAttribute:set_currentHP+2f:
+mov [rdi+20],eax
+mov rdi,[rbp-08]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"ICEY COIN"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100,UIDataBind:UpdateCharInfo+282)
+label(returnhere)
+label(originalcode)
+registersymbol(coin)
+alloc(coin,8)
+
+newmem:
+mov [coin],rcx
+
+originalcode:
+movsxd  rcx,dword ptr [rcx+10]
+cmp eax,ecx
+jmp returnhere
+
+UIDataBind:UpdateCharInfo+282:
+jmp newmem
+nop
+returnhere:
+
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+UIDataBind:UpdateCharInfo+282:
+movsxd  rcx,dword ptr [rcx+10]
+cmp eax,ecx
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>18</ID>
+              <Description>"Amount"</Description>
+              <LastState Value="9999" Activated="1" RealAddress="68C17070"/>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[coin]+10</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"200 Combo"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100,UIHitsGradeController:BeHited+eb)
+label(returnhere)
+label(originalcode)
+
+newmem:
+
+originalcode:
+mov [rsi+3C],#200
+mov rax,[rsi+18]
+
+jmp returnhere
+
+UIHitsGradeController:BeHited+eb:
+jmp newmem
+nop
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+UIHitsGradeController:BeHited+eb:
+mov [rsi+3C],eax
+mov rax,[rsi+18]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Infinite Jump"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+PlayerJumpAbility:Jump+c3:
+db 90 90 90 90 48 8B 46 38
+
+
+
+
+ 
+ 
+[DISABLE]
+PlayerJumpAbility:Jump+c3:
+db C6 46 48 01 48 8B 46 38
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>55</ID>
+          <Description>"Flash Level"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100,UIFlashController:Update+17a)
+label(returnhere)
+label(originalcode)
+alloc(flashlevel,8)
+registersymbol(flashlevel)
+
+newmem:
+mov [flashlevel],rcx
+originalcode:
+movsxd  rcx,dword ptr [rcx+30]
+cmp eax,ecx
+jmp returnhere
+
+UIFlashController:Update+17a:
+jmp newmem
+nop
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+UIFlashController:Update+17a:
+movsxd  rcx,dword ptr [rcx+30]
+cmp eax,ecx
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>56</ID>
+              <Description>""</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">1:Three Flashes
+2:Five Flashes
+</DropDownList>
+              <LastState Value="2" RealAddress="450A3670"/>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[flashlevel]+30</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>57</ID>
+      <Description>"WIP"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+local domains = mono_enumDomains()
+local domainId = domains[1]
+local playerInventoryId = mono_findClass('', 'PlayerAttribute')
+local pPlayerInventoryStatic = mono_class_getStaticFieldAddress(domainId, PlayerAttribute)
+unregisterSymbol('pPointer')
+registerSymbol('pPointer',pPlayer)
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+unregisterSymbol('pPointer')
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Structures StructVersion="2">
+    <Structure Name="PlayerAttribute" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="16" Vartype="Pointer" Bytesize="8" Description="_platform" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="24" Vartype="4 Bytes" Bytesize="4" Description="faceDir" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="28" Vartype="4 Bytes" Bytesize="4" Description="maxHP" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="32" Vartype="4 Bytes" Bytesize="4" Description="_currentHP" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="36" Vartype="4 Bytes" Bytesize="4" Description="maxEnergy" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="40" Vartype="4 Bytes" Bytesize="4" Description="_currentEnergy" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="44" Vartype="Float" Bytesize="4" Description="moveSpeed" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="48" Vartype="4 Bytes" Bytesize="4" Description="flashLevel" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="52" Vartype="4 Bytes" Bytesize="4" Description="currentFlashTimes" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="56" Vartype="4 Bytes" Bytesize="4" Description="FlashCd" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="60" Vartype="Byte" Bytesize="1" Description="flashFlag" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="64" Vartype="Float" Bytesize="4" Description="maxChargeTime" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="68" Vartype="4 Bytes" Bytesize="4" Description="maxChargeEndureDamage" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="72" Vartype="4 Bytes" Bytesize="4" Description="baseAtk" DisplayMethod="Unsigned Integer"/>
+      </Elements>
+    </Structure>
+  </Structures>
+</CheatTable>

@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"Optional Menu"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <Color>26F43A</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"Free Camera"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+// -- Y
+NeptuniaVII.exe+2C1190:
+subss xmm0,xmm2
+// -- X
+NeptuniaVII.exe+2C11F8:
+subss xmm0,xmm1
+// -- Clamp
+NeptuniaVII.exe+2C1678:
+db 90 90 90 90 90 90 90 90 F3 0F 11 1C 24 90 90 90 90 90
+ 
+ 
+[DISABLE]
+// -- Y
+NeptuniaVII.exe+2C1190:
+addss xmm0,xmm2
+// -- X
+NeptuniaVII.exe+2C11F8:
+addss xmm0,xmm1
+// -- Clamp
+NeptuniaVII.exe+2C1678:
+db F3 0F 11 9E 98 01 00 00 F3 0F 11 1C 24 E8 96 23 E4 FF
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Save Anywhere"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+alloc(value,4)
+registersymbol(value)
+newmem:
+mov [edi+3C],value
+test esi,esi
+jmp returnhere
+
+"NeptuniaVII.exe"+28EC87:
+jmp newmem
+returnhere:
+
+
+
+
+[DISABLE]
+dealloc(newmem)
+"NeptuniaVII.exe"+28EC87:
+db 89 77 3C 85 F6
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"No Animations"</Description>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+128:ON
+</DropDownList>
+          <LastState Value="0" RealAddress="72EC2B91"/>
+          <VariableType>Byte</VariableType>
+          <Address>DINPUT8.dll+22B91</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"Cheat Menu"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Value="" Activated="1" RealAddress="00000000"/>
+      <Color>0000FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Infinite SP"</Description>
+          <LastState Activated="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+label(originalcode)
+
+newmem:
+cmp [ecx+8],67A27E44
+je originalcode
+mov [ecx+10],#0
+setne al
+jmp returnhere
+
+originalcode:
+mov [ecx+10],#9999
+setne al
+jmp returnhere
+
+"NeptuniaVII.exe"+AE093:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+"NeptuniaVII.exe"+AE093:
+db 89 51 10 0F 95 C0
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>114621</ID>
+          <Description>"Inf Health"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+label(Ally)
+label(enemy_normal)
+label(enemy_kill)
+label(onehit)
+registersymbol(onehit)
+
+newmem:
+cmp [edx+8],67A27E44
+je Ally
+jmp enemy_normal
+
+onehit:
+dd 0
+
+enemy_normal:
+cmp [onehit],1
+je enemy_kill
+mov [edx],eax
+mov al,bl
+mov [edx+04],ecx
+jmp returnhere
+
+enemy_kill:
+mov [edx],#0
+mov al,bl
+mov [edx+04],ecx
+jmp returnhere
+
+Ally:
+mov [edx],#99999
+mov al,bl
+mov [edx+04],ecx
+jmp returnhere
+
+"NeptuniaVII.exe"+AE061:
+jmp newmem
+nop 2
+returnhere:
+
+[DISABLE]
+unregistersymbol(onehit)
+dealloc(newmem)
+"NeptuniaVII.exe"+AE061:
+mov [edx],eax
+mov al,bl
+mov [edx+04],ecx
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>114622</ID>
+              <Description>"One Hit Kill"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:OFF
+1:ON
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>onehit</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Inf Money"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+
+newmem:
+mov [esi+00010FA8],#2000000000
+jmp returnhere
+
+"NeptuniaVII.exe"+BCB47:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+dealloc(newmem)
+"NeptuniaVII.exe"+BCB47:
+mov [esi+00010FA8],ecx
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Inf Item"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+
+newmem:
+mov [esi+04],#1
+pop ebx
+pop esi
+
+jmp returnhere
+
+"NeptuniaVII.exe"+BD0DF:
+jmp newmem
+returnhere:
+
+[DISABLE]
+dealloc(newmem)
+"NeptuniaVII.exe"+BD0DF:
+mov [esi+04],ebx
+pop ebx
+pop esi
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>21</ID>
+          <Description>"Exp"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+registersymbol(exp)
+alloc(exp,4)
+
+newmem:
+mov ecx,[ebx+08]
+sub ecx,[ebp+08]
+mov [exp],ebx
+jmp returnhere
+
+"NeptuniaVII.exe"+AEFF3:
+jmp newmem
+nop
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+unregistersymbol(exp)
+dealloc(exp)
+dealloc(newmem)
+"NeptuniaVII.exe"+AEFF3:
+mov ecx,[ebx+08]
+sub ecx,[ebp+08]
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>22</ID>
+              <Description>"Current Exp"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>exp</Address>
+              <Offsets>
+                <Offset>08</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"EXE GAUGE"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+label(returnhere)
+registersymbol(pointer)
+alloc(pointer,4)
+
+newmem:
+movzx esi,word ptr [edi+00010FA0]
+mov [pointer],edi
+jmp returnhere
+
+"NeptuniaVII.exe"+BC6E0:
+jmp newmem
+nop 2
+returnhere:
+
+[DISABLE]
+dealloc(pointer)
+unregistersymbol(pointer)
+dealloc(newmem)
+"NeptuniaVII.exe"+BC6E0:
+movzx esi,word ptr [edi+00010FA0]
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>16</ID>
+              <Description>"Value"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">100:Level 1 Exe
+65736:Level 2 Exe
+131372:Level 3 Exe
+197008:Level 4 Exe
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pointer</Address>
+              <Offsets>
+                <Offset>10FA0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>18</ID>
+              <Description>"Level"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:1 Exe Level
+1:2 Exe Level
+2:3 Exe Level
+3:4 Exe Level
+</DropDownList>
+              <VariableType>4 Bytes</VariableType>
+              <Address>pointer</Address>
+              <Offsets>
+                <Offset>10FA2</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>114624</ID>
+          <Description>"Instant 999 LVL"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+NeptuniaVII.exe+AF310:
+nop 2
+NeptuniaVII.exe+AF312:
+nop 2
+NeptuniaVII.exe+AF316:
+nop 2
+[DISABLE]
+NeptuniaVII.exe+AF310:
+jl NeptuniaVII.exe+AF31C
+NeptuniaVII.exe+AF312:
+jg NeptuniaVII.exe+AF318
+NeptuniaVII.exe+AF316:
+jna NeptuniaVII.exe+AF31C
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>78055</ID>
+          <Description>"Battle Stats Base Address Scan Initialization (Activate This First)"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+registersymbol(battlestats_basepointer)
+registersymbol(battlestats_basepointer2)
+registersymbol(battlestats_update_enable)
+registersymbol(battlestats_set_enable)
+registersymbol(battlestats_spset_enable)
+registersymbol(battlestats_hpset_enable)
+registersymbol(battlestats_hddset_enable)
+registersymbol(battlestats_enemyset_enable)
+registersymbol(endurance_enable)
+registersymbol(hddform_noreset_enable)
+registersymbol(driveextend_set_enable)
+alloc(battlestats_basepointer, 4)
+alloc(battlestats_basepointer2, 4)
+alloc(battlestats_update_enable, 4)
+alloc(battlestats_set_enable, 4)
+alloc(battlestats_spset_enable, 4)
+alloc(battlestats_hpset_enable, 4)
+alloc(battlestats_hddset_enable, 4)
+alloc(battlestats_enemyset_enable, 4)
+alloc(endurance_enable, 4)
+alloc(hddform_noreset_enable,4)
+alloc(driveextend_set_enable,4)
+[DISABLE]
+unregistersymbol(battlestats_basepointer)
+unregistersymbol(battlestats_basepointer2)
+unregistersymbol(battlestats_update_enable)
+unregistersymbol(battlestats_set_enable)
+unregistersymbol(battlestats_spset_enable)
+unregistersymbol(battlestats_hpset_enable)
+unregistersymbol(battlestats_hddset_enable)
+unregistersymbol(battlestats_enemyset_enable)
+unregistersymbol(endurance_enable)
+unregistersymbol(hddform_noreset_enable)
+unregistersymbol(driveextend_set_enable)
+dealloc(battlestats_basepointer)
+dealloc(battlestats_basepointer2)
+dealloc(battlestats_update_enable)
+dealloc(battlestats_set_enable)
+dealloc(battlestats_spset_enable)
+dealloc(battlestats_hpset_enable)
+dealloc(battlestats_hddset_enable)
+dealloc(battlestats_enemyset_enable)
+dealloc(endurance_enable)
+dealloc(hddform_noreset_enable)
+dealloc(driveextend_set_enable)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>110804</ID>
+              <Description>"Battle Stats Base Address Scan (To Update: Battle All)"</Description>
+              <LastState/>
+              <Color>800000</Color>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+label(battlestats_partybase_code)
+label(battlestats_partybase_return)
+label(battlestats_originalcode)
+label(battlestats_return)
+label(battlestats_start_code)
+label(battlestats_start_return)
+label(endurance_originalcode)
+label(endurance_return)
+label(hddform_originalcode)
+label(hddform_return)
+label(driveextend_code)
+label(driveextend_return)
+label(battlestats_hddset_hddform)
+label(battlestats_hddset_nextform)
+label(battlestats_hddset_exit)
+label(battlestatsenemy_entry)
+label(cpu_check)
+label(cpu_check_main)
+label(cpu_check_side)
+registersymbol(battlestats_partybase_savedAOB)
+registersymbol(battlestats_savedAOB)
+registersymbol(battlestats_start_savedAOB)
+registersymbol(endurance_savedAOB)
+registersymbol(hddform_savedAOB)
+registersymbol(driveextend_savedAOB)
+aobscanmodule(battlestats_partybase_savedAOB,NeptuniaVII.exe,F7 87 64 02 00 00 00 01 00 00) // should be unique
+aobscanmodule(battlestats_savedAOB,NeptuniaVII.exe,8B 71 20 33 DB) // should be unique
+aobscanmodule(battlestats_start_savedAOB,NeptuniaVII.exe,8B 18 0F B7 70 04 C1 EB 02 83 E3 01 EB 04 33 DB 33 F6 50 E8 8C BE) // should be unique
+aobscanmodule(endurance_savedAOB,NeptuniaVII.exe,89 57 18 89 77 1C) // should be unique
+aobscanmodule(hddform_savedAOB,NeptuniaVII.exe,81 26 FF FF 3F FF EB) // should be unique
+aobscanmodule(driveextend_savedAOB,NeptuniaVII.exe,0F B7 41 14 85 C0) // should be unique
+alloc(battlestats_partybase_newmem,1024)
+alloc(battlestats_newmem,1024)
+alloc(battlestats_start_newmem,1024)
+alloc(endurance_newmem,1024)
+alloc(hddform_newmem,1024)
+alloc(driveextend_newmem,1024)
+alloc(battlestats_temp,4)
+alloc(battlestats_partybase_address,4)
+//Gets base party address
+battlestats_partybase_newmem:
+mov [battlestats_partybase_address],edi
+battlestats_partybase_code:
+test [edi+00000264],0100
+jmp battlestats_partybase_return
+battlestats_newmem:
+push ebx
+push edx
+//Check is Player Character
+test ax,6
+jz battlestatsenemy_entry
+//Calculate second base address for player characters
+mov ebx,[battlestats_partybase_address]//Party Base Address
+movzx edx,word ptr [ecx+4]
+imul edx,edx,2C0
+add ebx,edx
+add ebx,34C8
+cmp dword ptr [battlestats_update_enable], #0
+je @f
+mov [battlestats_basepointer],ecx
+mov [battlestats_basepointer2],ebx
+@@:
+cmp dword ptr [battlestats_set_enable], #0
+je @f
+mov dword ptr [ecx+20],#99999 //MAX HP
+mov dword ptr [ecx+28],#9999 //MAX SP
+mov dword ptr [ecx+2C],#9999 //STR
+mov dword ptr [ecx+30],#9999 //VIT
+mov dword ptr [ecx+34],#9999 //INT
+mov dword ptr [ecx+38],#9999 //MEN
+mov dword ptr [ecx+3C],#9999 //AGI
+mov dword ptr [ecx+40],#9999 //TEC
+mov dword ptr [ecx+44],#9999 //LUC
+mov dword ptr [ecx+48],#100 //MOV
+@@:
+cmp dword ptr [battlestats_spset_enable], #0
+je @f
+mov edx,[ecx+28]
+mov dword ptr [ebx+10],edx
+@@:
+cmp dword ptr [battlestats_hpset_enable], #0
+je @f
+mov edx,[ecx+20]
+mov dword ptr [ebx],edx
+@@:
+jmp battlestats_originalcode
+battlestatsenemy_entry:
+//Calculate second base address for enemies
+lea ebx,[esi+38]
+//Check for valid first level pointer
+mov [battlestats_temp],ebx
+pushad
+push 4
+push [battlestats_temp]
+call isbadreadptr
+test eax,eax
+popad
+jnz battlestats_originalcode
+mov ebx,[ebx]
+//Check for valid second level pointer
+mov [battlestats_temp],ebx
+pushad
+push 4
+push [battlestats_temp]
+call isbadreadptr
+test eax,eax
+popad
+jnz battlestats_originalcode
+cmp dword ptr [battlestats_update_enable], #0
+je @f
+mov [battlestats_basepointer],ecx
+mov [battlestats_basepointer2],ebx
+@@:
+cmp dword ptr [battlestats_enemyset_enable], #0
+je battlestats_originalcode
+cmp dword ptr [ebx],#5
+jbe battlestats_originalcode
+mov dword ptr [ebx+10],#1 //CUR SP
+mov dword ptr [ebx],#1 //CUR HP
+//mov dword ptr [ecx+20],#1 //MAX HP
+//mov dword ptr [ecx+28],#1 //MAX SP
+mov dword ptr [ecx+2C],#1 //STR
+mov dword ptr [ecx+30],#1 //VIT
+mov dword ptr [ecx+34],#1 //INT
+mov dword ptr [ecx+38],#1 //MEN
+mov dword ptr [ecx+3C],#1 //AGI
+mov dword ptr [ecx+40],#1 //TEC
+mov dword ptr [ecx+44],#1 //LUC
+mov dword ptr [ecx+48],#1 //MOV
+battlestats_originalcode:
+pop edx
+pop ebx
+mov esi,[ecx+20]
+xor ebx,ebx
+jmp battlestats_return
+battlestats_start_newmem:
+mov [battlestats_temp],esi
+pushad
+push 4
+push [battlestats_temp]
+call isbadreadptr
+test eax,eax
+popad
+jz battlestats_start_code
+cmp dword ptr [battlestats_hddset_enable], #0
+je battlestats_start_code
+pushad
+//Check for CPU Character
+call cpu_check
+cmp edx,#0
+je battlestats_hddset_exit
+cmp dword ptr [battlestats_hddset_enable], #2
+je battlestats_hddset_nextform
+battlestats_hddset_hddform:
+mov bl, byte ptr [eax+2]
+or bl,0x40 //HDD Form
+mov cl,1
+shl cl,7
+not cl
+and bl,cl //Clear Next Form
+mov byte ptr [eax+2],bl
+jmp battlestats_hddset_exit
+battlestats_hddset_nextform:
+cmp edx,#2
+je battlestats_hddset_hddform //HDD Form for CPU Candidate and Gold Sisters
+or byte ptr [eax+2],0xC0 //Next Form
+battlestats_hddset_exit:
+popad
+battlestats_start_code:
+mov ebx,[eax]
+movzx esi,word ptr [eax+04]
+jmp battlestats_start_return
+//Subroutine for battlestats_hddset
+cpu_check:
+cmp word ptr [eax+4],0x1 //Neptune
+je cpu_check_main
+cmp word ptr [eax+4],0x2 //Noire
+je cpu_check_main
+cmp word ptr [eax+4],0x3 //Blanc
+je cpu_check_main
+cmp word ptr [eax+4],0x4 //Vert
+je cpu_check_main
+cmp word ptr [eax+4],0x5 //Nepgear
+je cpu_check_side
+cmp word ptr [eax+4],0x6 //Uni
+je cpu_check_side
+cmp word ptr [eax+4],0x7 //Rom
+je cpu_check_side
+cmp word ptr [eax+4],0x8 //Ram
+je cpu_check_side
+cmp word ptr [eax+4],0xD //S-Sha
+je cpu_check_side
+cmp word ptr [eax+4],0xE //B-Sha
+je cpu_check_side
+cmp word ptr [eax+4],0xF //C-Sha
+je cpu_check_side
+cmp word ptr [eax+4],0x10 //K-Sha
+je cpu_check_side
+mov edx,#0
+ret
+cpu_check_main:
+mov edx,#1
+ret
+cpu_check_side:
+mov edx,#2
+ret
+endurance_newmem:
+cmp dword ptr [endurance_enable], #0
+je endurance_originalcode
+cmp edx,#5
+jbe endurance_originalcode
+mov edx,#1
+endurance_originalcode:
+mov [edi+18],edx
+mov [edi+1C],esi
+jmp endurance_return
+hddform_newmem:
+cmp [hddform_noreset_enable],#1
+je hddform_originalcode
+and [esi],FF3FFFFF
+hddform_originalcode:
+jmp hddform_return
+driveextend_newmem:
+cmp [driveextend_set_enable],#0
+je driveextend_code
+mov word ptr [ecx+14],#3
+driveextend_code:
+movzx eax,word ptr [ecx+14]
+test eax,eax
+jmp driveextend_return
+battlestats_partybase_savedAOB:
+jmp battlestats_partybase_newmem
+nop
+nop
+nop
+nop
+nop
+battlestats_partybase_return:
+battlestats_savedAOB:
+jmp battlestats_newmem
+battlestats_return:
+battlestats_start_savedAOB:
+jmp battlestats_start_newmem
+nop
+battlestats_start_return:
+endurance_savedAOB:
+jmp endurance_newmem
+nop
+endurance_return:
+hddform_savedAOB:
+jmp hddform_newmem
+nop
+hddform_return:
+driveextend_savedAOB:
+jmp driveextend_newmem
+nop
+driveextend_return:
+[DISABLE]
+battlestats_partybase_savedAOB:
+db F7 87 64 02 00 00 00 01 00 00
+battlestats_savedAOB:
+db 8B 71 20 33 DB
+battlestats_start_savedAOB:
+db 8B 18 0F B7 70 04
+endurance_savedAOB:
+db 89 57 18 89 77 1C
+hddform_savedAOB:
+db 81 26 FF FF 3F FF
+driveextend_savedAOB:
+db 0F B7 41 14 85 C0
+unregistersymbol(battlestats_partybase_savedAOB)
+unregistersymbol(battlestats_savedAOB)
+unregistersymbol(battlestats_start_savedAOB)
+unregistersymbol(endurance_savedAOB)
+unregistersymbol(hddform_savedAOB)
+unregistersymbol(driveextend_savedAOB)
+dealloc(battlestats_partybase_newmem)
+dealloc(battlestats_newmem)
+dealloc(battlestats_start_newmem)
+dealloc(endurance_newmem)
+dealloc(hddform_newmem)
+dealloc(driveextend_newmem)
+dealloc(battlestats_temp)
+dealloc(battlestats_partybase_address)
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>110805</ID>
+              <Description>"HDD/Next Form Always On?"</Description>
+              <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:Disabled
+1:HDD Form
+2:Next Form
+</DropDownList>
+              <Color>FF8000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>battlestats_hddset_enable</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>114620</ID>
+              <Description>"HDD/Next Form Set to No Reset?"</Description>
+              <DropDownList ReadOnly="1" DisplayValueAsItem="1">0:No
+1:Yes
+</DropDownList>
+              <Color>FF8000</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>hddform_noreset_enable</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
